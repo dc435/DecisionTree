@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<!--Program to display a trial calculator:-->
+
+  <head>
+    <meta charset="utf-8">
+    <title>EV Calculator</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+ 
+  <body>
+
+      <div class="header1">Litigation Expected Value Calculator</div>
+      <div class="header2">(View in the latest version of Chrome, Microsoft Edge or Firefox)</div>
+      <div class="instructions">
+        <p>Please Note:</p>
+        <p>1. The Expected Value Calculator is pre-filled with sample entries from <a href="EVSampleTree.pdf" target="_blank">this</a> hypothetical case. To refresh the entries, click here: <button id="btnRefresh" onclick="refresh()">Refresh</button> ;</p>
+        <p>2. To update the calculations, press 'tab' or click outside of the text box. Note how the values in the right-hand columns change, including the Total Expected Value.</p>
+        <p>3. Decision trees can also be used to show how the Expected Value changes as the case progresses. To progress this 
+          hypothetical case through wins in the Preliminary Hearing and the Main Hearing, click here: <button id="btnToggle" onclick="toggleProgress()">Toggle</button> ;</p>  
+      </div>
+
+      <!-- use <iframe> element to embed html page from elsewhere -->
+
+      <div class="calculatorContainer">
+
+        <!--Row 1:--> 
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <p class="headProb">p</p>
+        <p class="headDescription">Preliminary Hearing</p>        
+        <p class="blankEntry">-</p>
+        <p class="headProb">p</p>
+        <p class="headDescription">Main Hearing</p>   
+        <p class="blankEntry">-</p>  
+        <p class="headProb">p</p>
+        <p class="headDescription"></p> 
+        <p class="headDescription">Award</p> 
+        <p class="blankEntry">-</p>
+        <p class="headDescription">Your Legal Costs</p>
+        <p class="blankEntry">-</p>
+        <p class="headDescription">Their Legal Costs</p>
+        <p class="blankEntry">-</p>
+        <p class="headDescription">Net Gain / Loss</p>
+        <p class="blankEntry">-</p>
+        <p class="headProb">p (total)</p>
+        <p class="blankEntry">-</p>
+        <p class="headDescription">Expected Value</p> 
+
+        <!--Row 2:-->
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <hr style="width: 0.5px; height: 100%; display: inline-block; align-self: center; border-color: black;">
+        <input type="text" class="userInputProb" id="pDamHigh">        
+        <p class="bodyDescription">High Damages-></p>
+        <input type="text" class="userInputAmount" id="awardHigh"> 
+        <p class="operationSign">+</p>
+        <input type="text" class="userInputAmount" id="costsHigh"> 
+        <p class="operationSign">+</p>
+        <input type="text" class="userInputAmount" id="OPcostsHigh"> 
+        <p class="operationSign">=</p>
+        <p class="bodyAutofill" id="netHigh">[net gain / loss]</p>
+        <p class="operationSign">x</p>
+        <p class="bodyAutofill" id="netHighp">[p]</p>
+        <p class="operationSign">=</p>
+        <p class="bodyAutofill" id="erHigh">[expected return]</p>
+
+        <!--Row 3:-->
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <hr style="width: 0.5px; height: 100%; display: inline-block; align-self: center; border-color: black;">
+        <input type="text" class="userInputProb" id="pWinMain"> 
+        <p class="bodyDescription">Win Main-></p>
+        <hr style="width: 0.5px; height: 100%; display: inline-block; align-self: center; border-color: black;">
+        <input type="text" class="userInputProb" id="pDamMid"> 
+        <p class="bodyDescription">Mid Damages-></p>
+        <input type="text" class="userInputAmount" id="awardMid"> 
+        <p class="operationSign">+</p>
+        <input type="text" class="userInputAmount" id="costsMid"> 
+        <p class="operationSign">+</p>
+        <input type="text" class="userInputAmount" id="OPcostsMid"> 
+        <p class="operationSign">=</p>
+        <p class="bodyAutofill" id="netMid">[net gain / loss]</p>
+        <p class="operationSign">x</p>
+        <p class="bodyAutofill" id="netMidp">[p]</p>
+        <p class="operationSign">=</p>
+        <p class="bodyAutofill" id="erMid">[expected return]</p>
+
+        <!--Row 4:-->
+        <p class="blankEntry">-</p>
+        <hr style="width: 0.5px; height: 100%; display: inline-block; align-self: center; border-color: black;">
+        <input type="text" class="userInputProb" id= "pWinPrelim">
+        <p class="bodyDescription">Win Prelim-></p>
+        <hr style="width: 0.5px; height: 100%; display: inline-block; align-self: center; border-color: black;">
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <hr style="width: 0.5px; height: 100%; display: inline-block; align-self: center; border-color: black;">
+        <input type="text" class="userInputProb" id="pDamLow">
+        <p class="bodyDescription">Low Damages-></p>
+        <input type="text" class="userInputAmount" id="awardLow"> 
+        <p class="operationSign">+</p>
+        <input type="text" class="userInputAmount" id="costsLow"> 
+        <p class="operationSign">+</p>
+        <input type="text" class="userInputAmount" id="OPcostsLow"> 
+        <p class="operationSign">=</p>
+        <p class="bodyAutofill" id="netLow">[net gain / loss]</p>
+        <p class="operationSign">x</p>
+        <p class="bodyAutofill" id="netLowp">[p]</p>
+        <p class="operationSign">=</p>
+        <p class="bodyAutofill" id="erLow">[expected return]</p>
+
+        <!--Row 5:-->
+        <p class="bodyDescription">Case Start-></p>
+        <hr style="width: 0.5px; height: 100%; display: inline-block; align-self: center; border-color: black;">
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <hr style="width: 0.5px; height: 100%; display: inline-block; align-self: center; border-color: black;">
+        <input type="text" class="userInputProb" id="pLoseMain">
+        <p class="bodyDescription">Lose Main-></p>
+        <p class="blankEntry">-</p>
+        <hr style="width: 100%; height: .0.5px; display: inline-block; align-self: center; border-color: black;">
+        <hr style="width: 100%; height: .0.5px; display: inline-block; align-self: center; border-color: black;">
+        <input type="text" class="userInputAmount" id="awardLoseMain"> 
+        <p class="operationSign">+</p>
+        <input type="text" class="userInputAmount" id="costsLoseMain"> 
+        <p class="operationSign">+</p>
+        <input type="text" class="userInputAmount" id="OPcostsLoseMain"> 
+        <p class="operationSign">=</p>
+        <p class="bodyAutofill" id="netLoseMain">[net gain / loss]</p>
+        <p class="operationSign">x</p>
+        <p class="bodyAutofill" id="netLoseMainp">[p]</p>
+        <p class="operationSign">=</p>
+        <p class="bodyAutofill" id="erLoseMain">[expected return]</p>
+
+        <!--Row 6:-->
+        <p class="blankEntry">-</p>
+        <hr style="width: 0.5px; height: 100%; display: inline-block; align-self: center; border-color: black;">
+        <input type="text" class="userInputProb" id="pLosePrelim">
+        <p class="bodyDescription">Lose Prelim-></p>
+        <hr style="width: 100%; height: .0.5px; display: inline-block; align-self: center; border-color: black;">
+        <hr style="width: 100%; height: .0.5px; display: inline-block; align-self: center; border-color: black;">
+        <hr style="width: 100%; height: .0.5px; display: inline-block; align-self: center; border-color: black;">
+        <hr style="width: 100%; height: .0.5px; display: inline-block; align-self: center; border-color: black;">
+        <hr style="width: 100%; height: .0.5px; display: inline-block; align-self: center; border-color: black;">
+        <hr style="width: 100%; height: .0.5px; display: inline-block; align-self: center; border-color: black;">
+        <input type="text" class="userInputAmount" id="awardLosePrelim"> 
+        <p class="operationSign">+</p>
+        <input type="text" class="userInputAmount" id="costsLosePrelim"> 
+        <p class="operationSign">+</p>
+        <input type="text" class="userInputAmount" id="OPcostsLosePrelim"> 
+        <p class="operationSign">=</p>
+        <p class="bodyAutofill" id="netLosePrelim">[net gain / loss]</p>
+        <p class="operationSign">x</p>
+        <p class="bodyAutofill" id="netLosePrelimp">[p]</p>
+        <p class="operationSign">=</p>
+        <p class="bodyAutofill" id="erLosePrelim">[expected return]</p>      
+
+        <!--Row 7:-->
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <hr style="width: 100%; height: .0.5px; display: inline-block; align-self: center; border-color: black;">
+        <hr style="width: 100%; height: .0.5px; display: inline-block; align-self: center; border-color: black;">
+        <hr style="width: 100%; height: .0.5px; display: inline-block; align-self: center; border-color: black;">
+        <hr style="width: 100%; height: .0.5px; display: inline-block; align-self: center; border-color: black;">
+        <hr style="width: 100%; height: .0.5px; display: inline-block; align-self: center; border-color: black;">
+        
+        <!--Row 8:-->
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <p class="blankEntry">-</p>
+        <p class="summaryDescription">Total Expected Value:</p>
+        <p class="blankEntry">-</p>
+        <p class="summaryAutofill" id="erTotal">[Total expected return]</p>
+
+      </div>
+      <div class="footer1">
+        <div id="probWarning"> 
+          <p>ERROR: All probabilities from the same decision must add to 1.0. (Eg.: [0.8] + [0.2] = [1.0])</p>
+        </div>        
+        <div id="numberWarning">
+          <p>ERROR: All entries must be numbers! (Do not enter thousand separators ",", spaces or symbols)</p>
+        </div>
+
+      </div>   
+
+    <script src="script.js"></script>      
+
+  </body>
+</html>
