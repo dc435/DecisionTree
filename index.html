@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<!--Program to display a trial calculator:-->
+<!--Program to illustrate decision analysis:-->
  
   <head>
     <meta charset="utf-8">
@@ -10,18 +10,16 @@
  
   <body>
 
-      <div class="header1">Litigation Expected Value Calculator</div>
+      <div class="header1">Decision Analysis In Litigation</div>
       <div class="header2">(Best viewed in the latest version of Chrome, Microsoft Edge or Firefox)</div>
       <div class="instructions">
         <p>Please Note:</p>
-        <p>1. The Expected Value Calculator is pre-filled with sample entries from <a href="EVSampleTree.pdf" target="_blank">this</a> hypothetical case. To refresh the entries, click here: <button id="btnRefresh" onclick="refresh()">Refresh</button> ;</p>
+        <p>1. This sheet is pre-filled with sample entries from <a href="EVSampleTree.pdf" target="_blank">this</a> hypothetical case. To refresh the entries, click here: <button id="btnRefresh" onclick="refresh()">Refresh</button> ;</p>
         <p>2. To update the calculations, press 'tab' or click outside of the text box. Note how the values in the right-hand columns change, including the Total Expected Value.</p>
         <p>3. Decision trees can also be used to show how the Expected Value changes as the case progresses. To progress this 
           hypothetical case through wins in the Preliminary Hearing and the Main Hearing, click here: <button id="btnToggle" onclick="toggleProgress()">Toggle</button> ;</p>  
       </div>
-
-      <!-- use <iframe> element to embed html page from elsewhere -->
-
+   
       <div class="calculatorContainer">
 
         <!--Row 1:--> 
